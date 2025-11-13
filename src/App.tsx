@@ -86,6 +86,38 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+    const expertiseItems = [
+    {
+      color: "blue",
+      title: "Software Development",
+      desc: "React, TypeScript, Python, Node.js",
+      bgClass: "bg-blue-500/10",
+      borderClass: "border-blue-500/20",
+    },
+    {
+      color: "green",
+      title: "Problem Solving",
+      desc: "Data Structures, Algorithms, Debugging",
+      bgClass: "bg-green-500/10",
+      borderClass: "border-green-500/20",
+    },
+    {
+      color: "red",
+      title: "System Design & Databases",
+      desc: "APIs, REST, MySQL, MongoDB",
+      bgClass: "bg-red-500/10",
+      borderClass: "border-red-500/20",
+    },
+    {
+      color: "purple",
+      title: "Collaboration & Tools",
+      desc: "Git, Agile, VS Code, Cloud Basics",
+      bgClass: "bg-purple-500/10",
+      borderClass: "border-purple-500/20",
+    },
+  ];
+
+
   return (
     <div
       className={`min-h-screen transition-colors duration-300 ${
@@ -129,7 +161,7 @@ function App() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="pt-32 pb-12 px-6 min-h-screen flex items-center">
+      <section className="pt-24 pb-12 px-6 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto w-full">
           <div className="space-y-10 max-w-4xl mx-auto">
             {/* INTRO */}
@@ -169,28 +201,7 @@ function App() {
                 Core Expertise
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
-                {[
-                  {
-                    color: "red",
-                    title: "Web Development",
-                    desc: "React, TypeScript, Tailwind",
-                  },
-                  {
-                    color: "green",
-                    title: "3D & Animation",
-                    desc: "Blender, 3D Design",
-                  },
-                  {
-                    color: "blue",
-                    title: "AI & Python",
-                    desc: "Machine Learning, Scripting",
-                  },
-                  {
-                    color: "purple",
-                    title: "Robotics",
-                    desc: "Physics & Automation",
-                  },
-                ].map((item, i) => (
+                {expertiseItems.map((item, i) => (
                   <div
                     key={i}
                     className={`rounded-lg p-3 text-center border ${
@@ -324,53 +335,76 @@ function App() {
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-16">
-            My Skills &{" "}
-            <span className="bg-gradient-to-r from-red-500 to-green-500 bg-clip-text text-transparent">
-              Expertise
-            </span>
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
-            {skills.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={i}
-                  className={`p-6 rounded-2xl border-2 hover:shadow-lg transition-all hover:scale-105 ${
-                    darkMode
-                      ? "bg-gray-900 border-gray-700"
-                      : "bg-gray-50 border-gray-200"
-                  }`}
-                >
-                  <Icon
-                    className={`mx-auto mb-3 ${
-                      darkMode ? "text-blue-400" : "text-blue-500"
-                    }`}
-                    size={32}
-                  />
-                  <p className="font-semibold">{s.name}</p>
-                </div>
-              );
-            })}
+<section id="skills" className="py-20 px-6">
+  <div className="max-w-7xl mx-auto text-center">
+    <h2 className="text-4xl font-bold mb-16">
+      My Skills &{" "}
+      <span className="bg-gradient-to-r from-red-500 to-green-500 bg-clip-text text-transparent">
+        Expertise
+      </span>
+    </h2>
+
+    {/* TECHNICAL SKILLS */}
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
+      {[
+        { name: "HTML", icon: Code2 },
+        { name: "CSS", icon: Palette },
+        { name: "JavaScript", icon: Code2 },
+        { name: "React.js", icon: Code2 },
+        { name: "Node.js", icon: Code2 },
+        { name: "Python", icon: Code2 },
+        { name: "AI & ML Concepts", icon: Cpu },
+        { name: "Database (MySQL, MongoDB)", icon: Cpu },
+        { name: "Version Control (Git)", icon: Code2 },
+        { name: "API Integration", icon: Cpu },
+      ].map((skill, index) => {
+        const Icon = skill.icon;
+        return (
+          <div
+            key={index}
+            className={`p-6 rounded-2xl border-2 hover:shadow-lg transition-all hover:scale-105 ${
+              darkMode
+                ? "bg-gray-900 border-gray-700"
+                : "bg-gray-50 border-gray-200"
+            }`}
+          >
+            <Icon
+              className={`mx-auto mb-3 ${
+                darkMode ? "text-blue-400" : "text-blue-500"
+              }`}
+              size={32}
+            />
+            <p className="font-semibold">{skill.name}</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {softSkills.map((s, i) => (
-              <span
-                key={i}
-                className={`px-6 py-3 border-2 font-semibold rounded-full ${
-                  darkMode
-                    ? "bg-gray-900 border-gray-700"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+        );
+      })}
+    </div>
+
+    {/* SOFT SKILLS */}
+    <div className="flex flex-wrap justify-center gap-4">
+      {[
+        "Problem Solving",
+        "Adaptability",
+        "Team Collaboration",
+        "Analytical Thinking",
+        "Quick Learning",
+        "Time Management",
+        "Communication Skills",
+      ].map((s, i) => (
+        <span
+          key={i}
+          className={`px-6 py-3 border-2 font-semibold rounded-full ${
+            darkMode
+              ? "bg-gray-900 border-gray-700"
+              : "bg-white border-gray-200"
+          }`}
+        >
+          {s}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* CONTACT */}
       <section
