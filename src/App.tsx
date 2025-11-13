@@ -31,40 +31,64 @@ function App() {
     }
   }, [darkMode]);
 
+  const microbotYoutube = "https://youtu.be/v6UweSmTuP4?si=u_YvyVWAY1ePaHSl";      // replace with your video link
+  const microbotThumb = "./src/robo.jpg";             // replace with your thumbnail path
+
+  // compute a reliable embed URL for YouTube (supports watch?v= and youtu.be links)
+  const microbotYoutubeEmbed = microbotYoutube
+    ? microbotYoutube.includes("watch?v=")
+      ? microbotYoutube.replace("watch?v=", "embed/").split("?")[0]
+      : microbotYoutube.includes("youtu.be/")
+      ? microbotYoutube.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]
+      : microbotYoutube
+    : null;
+
   const projects = [
     {
-      name: "Portfolio Website",
+      name: "NASA Hackathon Project",
       description:
-        "Modern, responsive portfolio built with React and Tailwind CSS featuring smooth animations and clean design.",
-      tech: ["React", "Tailwind CSS", "TypeScript"],
-      demo: "#",
-      github: "#",
+        "A space-innovation project built for the NASA Space Apps Hackathon focusing on real-time data visualization, intelligent analysis, and futuristic problem solving for aerospace challenges.",
+      tech: ["React", "API Integration", "Data Visualization", "AI"],
+      demo: "https://earthvision.onrender.com/",
+      github: "https://github.com/NischaySai35/EarthVision",
+      gif: "./src/nasa.gif"
     },
     {
-      name: "Smart 3D Visualizer",
+      name: "3D_Education",
       description:
-        "Interactive 3D visualization tool using Blender and Python for real-time data representation.",
-      tech: ["Blender", "Python", "3D Design"],
-      demo: "#",
-      github: "#",
+        "Interactive 3D learning platform with hover-highlighting, AI explanations, and smooth WebGL-based model navigation for engineering and science education.",
+      tech: ["Three.js", "Node.js", "WebGL", "AI"],
+      demo: "https://youtu.be/2AcunbzejxY?si=F1A8DF7CyVEMb_bh",
+      github: "https://github.com/NischaySai35/3D_Education",
+      gif: "./src/brain.gif"
     },
     {
-      name: "Interactive Landing Page",
+      name: "BazaarConnect",
       description:
-        "Engaging landing page with dynamic animations and seamless user interactions.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      demo: "#",
-      github: "#",
+        "Supplier–Vendor connection platform with AI assistance, product listings, negotiation tools, real-time communication, and role-based dashboards.",
+      tech: ["React", "Node.js", "Tailwind", "AI"],
+      demo: "https://bazaarconnect.vercel.app/",
+      github: "https://github.com/NischaySai35/bazaarconnect_website",
+      gif: "./src/bazaar.jpg"
     },
     {
-      name: "AI-based Design Generator",
+      name: "AutoMind AI",
       description:
-        "Intelligent design system that generates creative layouts using machine learning algorithms.",
-      tech: ["Python", "AI", "React"],
+        "Automotive intelligence and diagnostics platform with sensor analytics, next-service automation, vehicle health monitoring, predictive repair suggestions, and manufacturing insights.",
+      tech: ["Next.js", "AI/ML", "Sensor Analytics", "Node.js"],
       demo: "#",
-      github: "#",
-      inProgress: true,
+      github: "https://github.com/NischaySai35/automind_ai",
+      gif: "./src/car.gif"
     },
+    {
+      name: "Decentralised Farmers App",
+      description:
+        "Blockchain-based farming solution that helps farmers trade crops, access verified data, manage yields, automate payments, and maintain transparent records without middlemen.",
+      tech: ["Web3", "React", "Solidity", "Smart Contracts"],
+      demo: "https://dappswarm.netlify.app/",
+      github: "https://github.com/NischaySai35/decentralised-app",
+      gif: "./src/farmers.jpg"
+    }
   ];
 
   const skills = [
@@ -86,7 +110,7 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-    const expertiseItems = [
+  const expertiseItems = [
     {
       color: "blue",
       title: "Software Development",
@@ -116,7 +140,6 @@ function App() {
       borderClass: "border-purple-500/20",
     },
   ];
-
 
   return (
     <div
@@ -205,9 +228,7 @@ function App() {
                   <div
                     key={i}
                     className={`rounded-lg p-3 text-center border ${
-                      darkMode
-                        ? `bg-${item.color}-500/10 border-${item.color}-500/20`
-                        : `bg-${item.color}-500/10 border-${item.color}-500/20`
+                      darkMode ? "bg-gray-800 border-gray-700" : `${item.bgClass} ${item.borderClass}`
                     }`}
                   >
                     <p className="font-semibold">{item.title}</p>
@@ -217,7 +238,7 @@ function App() {
               </div>
             </div>
 
-            {/* BUTTONS */}
+            {/* BUTTONS (added Resume button) */}
             <div className="pt-4 flex gap-4">
               <button
                 onClick={() => scrollToSection("projects")}
@@ -225,6 +246,15 @@ function App() {
               >
                 View My Projects
               </button>
+
+              <a
+                href="./src/resume.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-4 bg-white border-2 border-gray-200 text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition"
+              >
+                <Download size={18} />
+                View Resume
+              </a>
             </div>
           </div>
         </div>
@@ -292,12 +322,11 @@ function App() {
                     : "bg-white border-gray-200"
                 }`}
               >
-                {p.inProgress && (
-                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-red-500 to-blue-500 text-white text-xs font-semibold rounded-full mb-4">
-                    In Progress
-                  </span>
-                )}
+
                 <h3 className="text-2xl font-bold mb-3">{p.name}</h3>
+                {p.gif && (
+                  <img src={p.gif} className="rounded-lg mb-4 w-full h-auto" />
+                )}
                 <p className="opacity-80 mb-4">{p.description}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {p.tech.map((t, j) => (
@@ -315,18 +344,22 @@ function App() {
                 </div>
                 <div className="flex gap-3">
                   <a
-                    href={p.demo}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg font-semibold text-center flex items-center justify-center gap-2"
-                  >
-                    <ExternalLink size={16} />
-                    Demo
-                  </a>
-                  <a
                     href={p.github}
-                    className="px-4 py-2 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2 bg-gray-900 text-white rounded-lg font-semibold flex items-center justify-center gap-2"
                   >
                     <Github size={16} />
+                    GitHub
                   </a>
+
+                  {p.demo && p.name !== "AutoMind AI" && (
+                    <a
+                      href={p.demo}
+                      className="px-3 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg font-semibold flex items-center gap-2"
+                    >
+                      <ExternalLink size={14} />
+                      Demo
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -402,6 +435,102 @@ function App() {
           {s}
         </span>
       ))}
+    </div>
+  </div>
+</section>
+
+{/* HOBBIES, INTERESTS & MICROBOT STARTUP */}
+<section id="hobbies" className={`py-20 px-6 ${darkMode ? "bg-gray-900" : "bg-white"}`}>
+  <div className="max-w-7xl mx-auto">
+    {/* section heading (outside the card, centered and styled) */}
+    <h2 className="text-4xl font-bold text-center mb-8">Hobbies & <span className="text-blue-500">Interests</span></h2>
+
+    {/* HOBBIES / INTERESTS card */}
+    <div className={`rounded-2xl p-8 mb-12 border-2 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
+      <p className="mb-6 text-lg opacity-90">
+        Robotics • 3D Design & Animation • Physical Prototyping • AI-driven systems • Embedded systems • Product design
+      </p>
+
+      <div className="flex flex-wrap gap-3">
+        {["Robotics", "3D Modeling", "microcontrollers", "AI/ML", "Electronics", "Prototype Design"].map((hobby, idx) => (
+          <span
+            key={idx}
+            className={`px-4 py-2 rounded-full font-medium border ${
+              darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+            }`}
+          >
+            {hobby}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    {/* MICROBOT DEEP DIVE CARD (reduced content) */}
+    <div className={`rounded-2xl p-6 border-2 transition-all hover:shadow-lg ${darkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"}`}>
+      <div className="md:flex md:items-start md:gap-6">
+        {/* make video/thumbnail larger on md+ screens */}
+        <div className="md:w-1/2 mb-4 md:mb-0">
+          {/* Embedded player (falls back to clickable thumbnail if embed URL missing) */}
+          {microbotYoutubeEmbed ? (
+            <div className="w-full rounded-lg overflow-hidden">
+              <iframe
+                src={microbotYoutubeEmbed}
+                title="Microbot Demo"
+                className="w-full aspect-video rounded-lg"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          ) : (
+            <a href={microbotYoutube || "https://youtu.be/REPLACE_ME"} target="_blank" rel="noopener noreferrer" className="block rounded-lg overflow-hidden">
+              <img src={microbotThumb || "./src/microbot_thumb.jpg"} alt="Microbot demo" className="w-full h-auto rounded-lg" />
+            </a>
+          )}
+        </div>
+
+        <div className="md:flex-1">
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="text-2xl font-bold">Microbots — Formation & Hardware</h3>
+              <p className="text-sm opacity-80 mt-1">Prototype • Robotics • Real-world demo</p>
+            </div>
+            <div className="text-center">
+              <span className="inline-flex items-center justify-center px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r from-yellow-400 to-red-500 text-gray-900">
+                Startup — Raising Funds
+              </span>
+            </div>
+          </div>
+
+          <p className="mt-4 opacity-90">
+            A compact hardware + software prototype demonstrating modular micro-robot orientation, basic formation control, and data logging for debugging and iteration.
+          </p>
+
+          <ul className="mt-4 list-disc pl-5 space-y-2 text-sm opacity-90">
+            <li><strong>Mechanical:</strong> Compact module design with 3D orientation via two-motor arrangement.</li>
+            <li><strong>Control:</strong> Formation algorithms and leader-follower basics for coordinated movement.</li>
+            <li><strong>Sensors:</strong> IMU and proximity for closed-loop orientation and docking reliability.</li>
+          </ul>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={microbotYoutube || "https://youtu.be/REPLACE_ME"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg font-semibold flex items-center gap-2"
+            >
+              Watch Demo
+              <ExternalLink size={14} />
+            </a>
+
+            <a
+              href="mailto:nischaysai35@gmail.com?subject=Microbot%20Startup%20Inquiry"
+              className="px-5 py-2 border rounded-lg font-semibold"
+            >
+              Contact for Funding
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
