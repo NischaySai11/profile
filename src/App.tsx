@@ -571,6 +571,15 @@ function App() {
               LinkedIn
             </a>
             <a
+              href="https://linktr.ee/nischay35"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 flex items-center gap-3"
+            >
+              <ExternalLink size={24} />
+              Linktree
+            </a>
+            <a
               href="mailto:nischaysai35@gmail.com"
               className="px-8 py-4 bg-gradient-to-r from-red-500 to-green-500 text-white rounded-full font-semibold flex items-center gap-3"
             >
